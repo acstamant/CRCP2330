@@ -14,5 +14,9 @@ CHIP Bit {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    DFF(in=in, out=out1);
+    DFF(in=load, out=out2);
+
+    And(a=out1, b=out2, out=out);
 }
+
