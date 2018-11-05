@@ -6,38 +6,27 @@
 // Multiplies R0 and R1 and stores the result in R2.
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
-@sum 
-M=0
 @0
 D=M
-@2
-M=D
+@i
+M=D //this sets 0 and i to the same memory 
 
  (LOOP)
 
- 	@0
+ 	@i
  	D=M
  	@END
- 	D; JEQ
-
+ 	D; JEQ //causes the loop to end if i=0
 
  	@1
  	D=M
- 	@sum
- 	M=M+D
-
  	@2
- 	D=A
- 	M=M-1
+ 	M=M+D //adds the number in R1 to R2
 
+ 	@i
+ 	M=M-1 //this deincrements i
+ 	
  	@LOOP
-	0;JMP
 
- (END)
-@sum 
-D=M
- @2
- M=D
-
- @END
- 0;JMP
+ (END)	
+	 @END
