@@ -27,6 +27,7 @@ M=D //this sets 0 and i to the same memory
  	M=M-1 //this deincrements i
  	
  	@LOOP
+ 	D;JMP
 
  (END)	
 	 @END
