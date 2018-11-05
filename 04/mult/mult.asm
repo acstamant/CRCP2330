@@ -7,30 +7,31 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 @sum 
-M=0
+ M=0
 
-(LOOP)
+ (LOOP)
 
-@0
-D;JEQ
-@1
-D;JEQ
+	 @0
+ 	D;JEQ
+ 	@1
+ 	D;JEQ
 
+ 	@0
+ 	D=M
+ 	@1
+ 	M=M+D
 
-@0
-D=M
-@1
-M=M+D
+	 @sum
+	D=M 
 
-@sum
-D=M 
+ 	@LOOP
+	 0;JMP
 
-@LOOP
-0;JMP
+ (END)
 
-(END)
+ @sum
+ D=M
+ @2
+ M=D
 
-@sum
-0;JMP
-
-
+ 0;JMP
