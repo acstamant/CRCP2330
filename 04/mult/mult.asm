@@ -31,3 +31,4 @@ M=D //this sets 0 and i to the same memory
 
  (END)	
 	 @END
+	 0;JMP
