@@ -12,19 +12,18 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 @SCREEN
-D=M
+D=A
 @i
 M=D //initalizes screen and i to the same memory, i tells you where the next screen is 
 
 (LOOP)
+	@24576
+	D=M 
 	@BLACK 
-	D; JLT
-
+	D; JNE 
 	@WHITE
 	D; JEQ
-(END)
-@END
-D;JMP
+
 
 (BLACK)
 	@SCREEN
@@ -33,8 +32,8 @@ D;JMP
 	@i
 	M=A
 	D=M+1 //increments i to the next section of the screen 	
-	@LOOP 
-	D;JMP
+	@LOOP
+	0; JMP
 
 (WHITE)
 	@SCREEN 
@@ -44,9 +43,9 @@ D;JMP
 	M=A
 	D=M-1 //deincrements i so that the black goes away
 
-	@LOOP 
+	@LOOP
 	D; JMP
 
-
+(END)
 @END
-D;JMP 
+D;JMP //infinite loop 
