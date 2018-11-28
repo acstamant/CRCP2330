@@ -42,7 +42,7 @@ M=D
 	D=A
 	M=D-1
 	@i
-	D=M //deincrements i so that the black goes away
+	D=M 
 
 	@WHITE
 	D; JMP
