@@ -27,11 +27,19 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    
-    DMux(in=load, sel=address[14], a=screen, b=RAM)
+    //can tell where it goes based on how many binary numbers 
+    //Ram16K=14
+    //Screen =15
+    //Keyboard=15
 
-    SCREEN(in=in, load=screen, adress=address, out=screenOUT)
-    RAM16K(in=in, load=RAM, address=address, out=ramOUT)
-    Keyboard(out=keyboardout)
+    //depending on address 13 and 14, it tells you whether to send it to screen or RAM 
+    DMux(in=load, sel=address[14], a=screen, b=RAM);
+
+
+    SCREEN(in=in, load=screen, address=address[14], out=screenOUT);
+    RAM16K(in=in, load=RAM, address=address[13], out=ramOUT);
+    Keyboard(out=keyboardOUT);
+
+    Mux4Way(a=screenOUT, b=ramOUT, c=keyboardOUT, d=keyboardOUT, sel=address[12..14], out=out);
 
 }
