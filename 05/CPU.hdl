@@ -39,11 +39,14 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
+
+    //i x x a c1 c2 c3 c4 c5 c6 d1 d2 d3 j1 j2 j3
+    //a=A or M, c=comp, d=dest, j=jump 
+
+    //decoder
     Not(in=instruction[15], out=Ainstruction)
     Not(in=Ainstruction, out=Cinstruction)
 
-    Mux16(a=instuction, b=ALUoutput, sel=Ainstruction, out=Muxoutput)
-    
-    
+    Mux16(a=instruction, b=ALUoutput, sel= , out=sendtoA)
 
 }
