@@ -53,8 +53,20 @@ CHIP CPU {
          Or(a=Ainstruction, b=instruction[15], a=Ainst);
 
     //A Register
-         ARegister(in=sendtoA, load= Ainst , out[0..14]=Minstruction, out=A);
+         ARegister(in=sendtoA, load=Ainst , out[0..14]=Minstruction, out=A);
+
+         And(a=instruction[15], b=instruction[12], out=AorM);
+
+    //Decides if it is A or M
+         Mux16(a=A, b=inM, sel=AorM, out=AM);
+
+    //D Register
+        DRegister(in=ALUoutput, load=Cinstruction, out=sendtoD);
+
+    //ALU
+        ALU(x=sendtoD, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8] f=intruction[7], no=instruction[6], out=ALUoutput, zr=aluZero, ng=aluNeg);
 
 
-    PC(in= , load=, inc=, reset=, out= )
+
+    PC(in=A, load=, inc=, reset=reset, out=PC )
 }
