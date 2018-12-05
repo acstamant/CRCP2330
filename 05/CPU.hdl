@@ -44,9 +44,17 @@ CHIP CPU {
     //a=A or M, c=comp, d=dest, j=jump 
 
     //decoder
-    Not(in=instruction[15], out=Ainstruction)
-    Not(in=Ainstruction, out=Cinstruction)
+         Not(in=instruction[15], out=Ainstruction);
+         Not(in=Ainstruction, out=Cinstruction);
 
-    Mux16(a=instruction, b=ALUoutput, sel= , out=sendtoA)
+    //MUX
+         Mux16(a[0..14]=instruction[0..14], a[15]=instruction[15], b=ALUoutput, sel=Ainstruction, out=sendtoA);
 
+         Or(a=Ainstruction, b=instruction[15], a=Ainst);
+
+    //A Register
+         ARegister(in=sendtoA, load= Ainst , out[0..14]=Minstruction, out=A);
+
+
+    PC(in= , load=, inc=, reset=, out= )
 }
