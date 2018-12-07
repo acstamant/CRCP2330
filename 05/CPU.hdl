@@ -67,9 +67,27 @@ CHIP CPU {
         ALU(x=sendtoD, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8] f=intruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
 
     //writeM-based on d3
-        And(a=instruction[15], b=instruction[3], out=writeM)
+        And(a=instruction[15], b=instruction[3], out=writeM);
+
+    //fetches the jump instruction
+    Not(in=aluNeg, out=aluPositive);
+    Not(in=aluZero, out=aluNonZero);
+
+    And(a=aluPositive, b=instruction[0], out=JGT); //out > 0
+    And(a=aluZero, b=instruction[1], out=JEQ); // out = 0
+    And(a=aluNeg, b=instruction[2], out=JLT);// out < 0
+
+    Or(a=aluZero, b=aluNeg, out=NotPositive);
+    Or(a=aluPositive, b=aluNonZero, out=Postive);
+
+    Or(a=JGT, b=JEQ, out=jump1);
+    Or(a=JLT, b=jump2, out=jump);
+    
+
+
+
 
 
     //PC
-        PC(in=A, load=, inc=, reset=reset, out=PC )
+        PC(in=A, load=, inc=, reset=reset, out=PC)
 }
