@@ -64,9 +64,12 @@ CHIP CPU {
         DRegister(in=ALUoutput, load=Cinstruction, out=sendtoD);
 
     //ALU
-        ALU(x=sendtoD, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8] f=intruction[7], no=instruction[6], out=ALUoutput, zr=aluZero, ng=aluNeg);
+        ALU(x=sendtoD, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8] f=intruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
+
+    //writeM-based on d3
+        And(a=instruction[15], b=instruction[3], out=writeM)
 
 
-
-    PC(in=A, load=, inc=, reset=reset, out=PC )
+    //PC
+        PC(in=A, load=, inc=, reset=reset, out=PC )
 }
