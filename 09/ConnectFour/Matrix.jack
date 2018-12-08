@@ -1,0 +1,7 @@
+class Matrix
+{
+	constructor Matix new(int row, int col) //creates the Matrix
+	{
+
+	}
+}

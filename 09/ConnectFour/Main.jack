@@ -1,0 +1,13 @@
+class Main
+{
+	function void main()
+	{
+
+	//declares array
+		var Matrix a;
+
+	//initalizes Matrix
+		let a = Matrix.new(9,7)
+
+	}
+}
