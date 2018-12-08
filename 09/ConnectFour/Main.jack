@@ -1,8 +1,14 @@
 class Main{
-	function void main(){
+	function void main()
+	{
 
 	var int seed; 
-	let seed=Keyboard.readInt("Please enter a number between 1 and 100 (this will act as the seed): ")
+	var RandomNum c; 
+	
+	let seed=Keyboard.readInt("Please enter a number between 1 and 100(this will act as the seed): ");
+
+	do c.print();
+	return; 
 	}
 }
 	

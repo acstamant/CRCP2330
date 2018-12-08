@@ -1,7 +1,7 @@
 class RandomNum
 {
-	//class that creates a psuedo random number 
-	static int seed; 
+
+ static int seed; 
 
 	function void setSeed(int newSeed)
 	{
@@ -9,17 +9,37 @@ class RandomNum
 		return; 
 	}
 
-	function randomGen
-	{
-		if(seed/2=0)
+	method int randomGen()
+	{	
+		var int d; 
+		//checks to see if the number is even...avoiding fractions
+		if(seed/2>0)
 		{
-			let seed=seed
+			let seed=seed+29843;
 		}
-		else()
-		{
-			let seed=seed+928843
+		else{
+			let seed=seed+1382;
 		}
+
+		let d=RandomNum.divide(seed);
 		return seed; 
 	}
 
+	function int divide(int a)
+	{
+		var int i;
+
+		while (i<5)
+		{
+			let a=seed/2;
+			let i=i+1; 
+		}
+		return a; 
+	}
+
+	method void print()
+	{
+	do Output.printInt(seed);
+	return; 
+	}
 }

@@ -1,0 +1,59 @@
+function RandomNum.setSeed 0
+push argument 0
+pop static 0
+push constant 0
+return
+function RandomNum.randomGen 1
+push argument 0
+pop pointer 0
+push static 0
+push constant 2
+call Math.divide 2
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 0
+push constant 29843
+add
+pop static 0
+goto IF_END0
+label IF_FALSE0
+push static 0
+push constant 1382
+add
+pop static 0
+label IF_END0
+push static 0
+call RandomNum.divide 1
+pop local 0
+push static 0
+return
+function RandomNum.divide 1
+label WHILE_EXP0
+push local 0
+push constant 5
+lt
+not
+if-goto WHILE_END0
+push static 0
+push constant 2
+call Math.divide 2
+pop argument 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+return
+function RandomNum.print 0
+push argument 0
+pop pointer 0
+push static 0
+call Output.printInt 1
+pop temp 0
+push constant 0
+return
