@@ -2,12 +2,20 @@ class Main{
 	function void main()
 	{
 
-	var int seed; 
-	var RandomNum c; 
-	
-	let seed=Keyboard.readInt("Please enter a number between 1 and 100(this will act as the seed): ");
+		var int number, a; 
+		var int lowerbound, upperbound, randNum, guess; 
 
-	do c.print();
+
+		let lowerbound=0;
+		let upperbound=5021;
+
+		let number=Keyboard.readInt("Please enter a number between 1 and 100: ");
+
+		let a=RandomNum.new(number);
+
+
+
+	
 	return; 
 	}
 }

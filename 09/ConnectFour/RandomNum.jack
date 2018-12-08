@@ -3,43 +3,30 @@ class RandomNum
 
  static int seed; 
 
-	function void setSeed(int newSeed)
+ 	constructor RandomNum new(int theSeed)
 	{
-		let seed=newSeed; 
-		return; 
+		let seed=theSeed;
+		return this; 
 	}
 
-	method int randomGen()
+	function int randomGen()
 	{	
-		var int d; 
-		//checks to see if the number is even...avoiding fractions
-		if(seed/2>0)
-		{
-			let seed=seed+29843;
-		}
-		else{
-			let seed=seed+1382;
-		}
-
-		let d=RandomNum.divide(seed);
+		let seed=seed+54; 
 		return seed; 
 	}
 
-	function int divide(int a)
+	function int rand(int a )
 	{
 		var int i;
+		let i=0;
 
 		while (i<5)
 		{
-			let a=seed/2;
+			let seed = seed*2+3 ;
 			let i=i+1; 
 		}
-		return a; 
+		return seed; 
 	}
-
-	method void print()
-	{
-	do Output.printInt(seed);
-	return; 
-	}
+	
+	
 }
