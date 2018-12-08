@@ -3,10 +3,10 @@ class RandomNum
 
  static int seed; 
 
- 	constructor RandomNum new(int theSeed)
+ 	function int RandomNum (int theSeed)
 	{
 		let seed=theSeed;
-		return this; 
+		return seed; 
 	}
 
 	function int randomGen()
@@ -15,7 +15,7 @@ class RandomNum
 		return seed; 
 	}
 
-	function int rand(int a )
+	function int rand(int a)
 	{
 		var int i;
 		let i=0;

@@ -3,15 +3,19 @@ class Main{
 	{
 
 		var int number, a; 
-		var int lowerbound, upperbound, randNum, guess; 
+		var RandomNum seed; 
 
+		var int lowerbound, upperbound, randNum, guess; 
 
 		let lowerbound=0;
 		let upperbound=5021;
 
 		let number=Keyboard.readInt("Please enter a number between 1 and 100: ");
 
-		let a=RandomNum.new(number);
+		let seed=RandomNum.rand(number);
+
+
+
 
 
 
