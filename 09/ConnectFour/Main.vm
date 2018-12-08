@@ -1,8 +1,4 @@
-function Main.main 7
-push constant 0
-pop local 3
-push constant 5021
-pop local 4
+function Main.main 2
 push constant 41
 call String.new 1
 push constant 80
@@ -91,6 +87,6 @@ call Keyboard.readInt 1
 pop local 0
 push local 0
 call RandomNum.rand 1
-pop local 2
+pop local 1
 push constant 0
 return

@@ -2,6 +2,7 @@ class RandomNum
 {
 
  static int seed; 
+ 
 
  	function int RandomNum (int theSeed)
 	{
@@ -27,6 +28,47 @@ class RandomNum
 		}
 		return seed; 
 	}
+
+	function int find(){
+	
+		var int a; 
+		var int lowerbound, upperbound, randNum, guess, counter; 
+
+		let guess = 0; 
+		let counter=0; 
+
+		let lowerbound=0;
+		let upperbound=5021;
+
+		while (~(seed=guess))
+		{
+			let counter=counter+1;
+
+		}
+		return counter; 
+
+		}
+	function int lowerBound(){
+		var int randNum, guess, lowerBound;
+		if(randNum>guess)
+		{
+			let lowerBound=guess; 
+		}
+		return guess; 
+		}
+
+		
+	function int upperBound(){
+		var int randNum, guess, lowerBound;
+		if(randNum<guess)
+		{
+			let lowerBound=guess; 
+		}
+		return guess; 
+	}
+
+		
+		
 	
 	
 }

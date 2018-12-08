@@ -33,3 +33,51 @@ goto WHILE_EXP0
 label WHILE_END0
 push static 0
 return
+function RandomNum.find 6
+push constant 0
+pop local 4
+push constant 0
+pop local 5
+push constant 0
+pop local 1
+push constant 5021
+pop local 2
+label WHILE_EXP0
+push static 0
+push local 4
+eq
+not
+not
+if-goto WHILE_END0
+push local 5
+push constant 1
+add
+pop local 5
+goto WHILE_EXP0
+label WHILE_END0
+push local 5
+return
+function RandomNum.lowerBound 3
+push local 0
+push local 1
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+pop local 2
+label IF_FALSE0
+push local 1
+return
+function RandomNum.upperBound 3
+push local 0
+push local 1
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+pop local 2
+label IF_FALSE0
+push local 1
+return
