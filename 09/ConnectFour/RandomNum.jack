@@ -1,0 +1,25 @@
+class RandomNum
+{
+	//class that creates a psuedo random number 
+	static int seed; 
+
+	function void setSeed(int newSeed)
+	{
+		let seed=newSeed; 
+		return; 
+	}
+
+	function randomGen
+	{
+		if(seed/2=0)
+		{
+			let seed=seed
+		}
+		else()
+		{
+			let seed=seed+928843
+		}
+		return seed; 
+	}
+
+}

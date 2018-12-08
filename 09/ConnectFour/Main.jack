@@ -1,13 +1,8 @@
-class Main
-{
-	function void main()
-	{
+class Main{
+	function void main(){
 
-	//declares array
-		var Matrix a;
-
-	//initalizes Matrix
-		let a = Matrix.new(9,7)
-
+	var int seed; 
+	let seed=Keyboard.readInt("Please enter a number between 1 and 100 (this will act as the seed): ")
 	}
 }
+	
