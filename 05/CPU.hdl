@@ -45,9 +45,9 @@ CHIP CPU {
 
     //decoder
         //if they are both 1, then it is a C instruction
-      
-         Not(in=instruction[15], out=Ainstruction);
-         Not(in=Ainstruction, out=Cinstruction);
+      And(a=instruction[15], b=instruction[15], out=Cinstruction);
+         Not(in=Cinstruction, out=Ainstruction);
+       
          //if the instruction is 1, then the output is 0(A instruction)
  
 
