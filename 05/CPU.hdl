@@ -54,24 +54,25 @@ CHIP CPU {
     //Does the instruction go to the A or D regsiter?
     //d1=A Register, d2=D register, d3=whether to store computed value in M 
     
-        And(a=Ainstruction, b=Ainstruction, out=send);
-        Not(in=send, out=sendtoA);
+        Or(a=instruction[15], b=instruction[3], out=sendtoA);
+        
 
         And(a=instruction[15], b=instruction[4], out=sendtoD);
 
         //when instruction[12]=1, then you use M
         And(a=instruction[15], b=instruction[12], out=mem); 
-        And(a=mem, b=instruction[3], out=memory);
+        Or(a=mem, b=instruction[3], out=memory);
 
     //MUX
-        //if instruction[15] is 0, out ALUoutput, if 1, then outputs the inst
-         Mux16(a=ALUoutput,b=instruction, sel=instruction[15], out=AorD);
+        //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
+         Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=AorD);
 
     //A Register
          ARegister(in=AorD, load=sendtoA, out[0..14]=Minstruction, out=A);
 
     //Decides if it is A or M
          Mux16(a=A, b=inM, sel=memory, out=AM);
+         And(a=instruction[15], b=instruction[3], out=writeM);
 
     //D Register
         DRegister(in=ALUoutput, load=sendtoD, out=D);
@@ -88,15 +89,15 @@ CHIP CPU {
     //Jump Conditions
 
 
-        DMux8Way(in=Cinstruction, sel[2]=instruction[2], sel[1]=instruction[1], sel[0]=instruction[0], a=null, b=JGT, c=JEQ, d=JGE, e=JLT, f=JNE, g=JLE, h=JMP); 
+        DMux8Way(in=Cinstruction, sel[0]=instruction[0], sel[1]=instruction[1], sel[2]=instruction[2], a=null, b=JGT, c=JEQ, d=JGE, e=JLT, f=JNE, g=JLE, h=JMP); 
 
         And(a=aluZero, b=null, out=noJump);
         And(a=pos, b=JGT, out=jump1);
          And(a=aluZero, b=JEQ, out=jump2);
-          And(a=aluPositive, b=JGE, out=jump3);
+          Or(a=JGT, b=JEQ, out=jump3);
            And(a=aluNeg, b=JLT, out=jump4);
             And(a=aluNonZero, b=JNE, out=jump5); 
-            And(a=NotPositive, b=JLE, out=jump6);
+            And(a=JEQ, b=JLT, out=jump6);
              And(a=aluPositive, b=JMP, out=jump7);
 
              Or(a=jump1, b=jump2, out=one); 
@@ -113,5 +114,5 @@ CHIP CPU {
         Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
-        PC(in=A, load=jumpInst, inc=incInst, reset=reset, out=PC);
+        PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=PC);
  }
