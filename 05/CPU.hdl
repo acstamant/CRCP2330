@@ -54,8 +54,7 @@ CHIP CPU {
     //Does the instruction go to the A or D regsiter?
     //d1=A Register, d2=D register, d3=whether to store computed value in M 
     
-        Or(a=instruction[15], b=instruction[3], out=sendtoA);
-        
+        Or(a=instruction[15], b=instruction[5], out=sendtoA);
 
         And(a=instruction[15], b=instruction[4], out=sendtoD);
 
@@ -65,7 +64,7 @@ CHIP CPU {
 
     //MUX
         //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
-         Mux16(a=instruction,b=ALUoutput, sel=sendtoA, out=AorD);
+         Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=AorD);
 
     //A Register
          ARegister(in=AorD, load=sendtoA, out[0..14]=Minstruction, out=A);
