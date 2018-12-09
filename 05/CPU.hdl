@@ -45,16 +45,17 @@ CHIP CPU {
 
     //decoder
         //if they are both 1, then it is a C instruction
-         And(a=instruction[15],b=instruction[15], out=Cinstruction);
-         Not(in=Cinstruction, out=Ainstruction);
+      
+         Not(in=instruction[15], out=Ainstruction);
+         Not(in=Ainstruction, out=Cinstruction);
          //if the instruction is 1, then the output is 0(A instruction)
  
 
     //Does the instruction go to the A or D regsiter?
     //d1=A Register, d2=D register, d3=whether to store computed value in M 
-
-        //if both = 1 (cinst), then dont send to A
-        Nand(a=Ainstruction, b=instruction[5], out=sendtoA);
+    
+        And(a=Ainstruction, b=Ainstruction, out=send);
+        Not(in=send, out=sendtoA);
 
         And(a=instruction[15], b=instruction[4], out=sendtoD);
 
