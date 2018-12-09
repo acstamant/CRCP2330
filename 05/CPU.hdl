@@ -45,59 +45,56 @@ CHIP CPU {
 
     //decoder
         //if they are both 1, then it is a C instruction
-      And(a=instruction[15], b=instruction[15], out=Cinstruction);
-         Not(in=Cinstruction, out=Ainstruction);
-       
-         //if the instruction is 1, then the output is 0(A instruction)
- 
+            And(a=instruction[15], b=instruction[15], out=Cinstruction);
+            Not(in=Cinstruction, out=Ainstruction);
 
-    //Does the instruction go to the A or D regsiter?
-    //d1=A Register, d2=D register, d3=whether to store computed value in M 
+        //Does the instruction go to the A or D register?
+         //d1=A Register, d2=D register, d3=whether to store computed value in M 
     
-        Or(a=instruction[15], b=instruction[5], out=sendtoA);
-
-        And(a=instruction[15], b=instruction[4], out=sendtoD);
+            And(a=true, b=instruction[5], out=sendtoA);
+            And(a=true, b=instruction[4], out=sendtoD);
 
         //when instruction[12]=1, then you use M
-        And(a=instruction[15], b=instruction[12], out=mem); 
-        Or(a=mem, b=instruction[3], out=memory);
+            //And(a=instruction[15], b=instruction[12], out=mem); 
+            //Or(a=mem, b=instruction[3], out=memory);
 
     //MUX
         //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
-         Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=AorD);
+            Mux16(a=ALUoutput,b=instruction, sel=sendtoA, out=AorD);
+            Or(a=Ainstruction, b=sendtoA, out=loadtoA);
 
     //A Register
-         ARegister(in=AorD, load=sendtoA, out[0..14]=Minstruction, out=A);
+            ARegister(in=AorD, load=loadtoA, out[0..14]=addressM, out=A);
 
     //Decides if it is A or M
-         Mux16(a=A, b=inM, sel=memory, out=AM);
-         And(a=instruction[15], b=instruction[3], out=writeM);
+            //If 12 is 0, then A, if its 1, then M 
+            Mux16(a=A, b=inM, sel=instruction[12], out=AM);
+
+            And(a=instruction[15], b=instruction[3], out=writeM);
 
     //D Register
-        DRegister(in=ALUoutput, load=sendtoD, out=D);
+            DRegister(in=ALUoutput, load=sendtoD, out=D);
 
     //ALU
-        ALU(x=D, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
+            ALU(x=D, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
 
     //fetches the jump instruction
-        Or(a=aluZero, b=aluNeg, out=NotPositive);
-        Not(in=NotPositive, out=aluPositive);
-        Not(in=aluZero, out=aluNonZero);
-        Not(in=aluNeg, out=pos);
+            Or(a=aluZero, b=aluNeg, out=NotPositive);
+            Not(in=NotPositive, out=aluPositive);
+            Not(in=aluZero, out=aluNonZero);
+            Not(in=aluNeg, out=pos);
 
     //Jump Conditions
+            DMux8Way(in=Cinstruction, sel[0]=instruction[0], sel[1]=instruction[1], sel[2]=instruction[2], a=null, b=JGT, c=JEQ, d=JGE, e=JLT, f=JNE, g=JLE, h=JMP); 
 
-
-        DMux8Way(in=Cinstruction, sel[0]=instruction[0], sel[1]=instruction[1], sel[2]=instruction[2], a=null, b=JGT, c=JEQ, d=JGE, e=JLT, f=JNE, g=JLE, h=JMP); 
-
-        And(a=aluZero, b=null, out=noJump);
-        And(a=pos, b=JGT, out=jump1);
-         And(a=aluZero, b=JEQ, out=jump2);
-          Or(a=JGT, b=JEQ, out=jump3);
-           And(a=aluNeg, b=JLT, out=jump4);
+            And(a=aluZero, b=null, out=noJump);
+            And(a=pos, b=JGT, out=jump1);
+            And(a=aluZero, b=JEQ, out=jump2);
+            Or(a=JGT, b=JEQ, out=jump3);
+            And(a=aluNeg, b=JLT, out=jump4);
             And(a=aluNonZero, b=JNE, out=jump5); 
             And(a=JEQ, b=JLT, out=jump6);
-             And(a=aluPositive, b=JMP, out=jump7);
+            And(a=aluPositive, b=JMP, out=jump7);
 
              Or(a=jump1, b=jump2, out=one); 
              Or(a=one, b=jump3, out=two); 
@@ -106,12 +103,11 @@ CHIP CPU {
              Or(a=four, b=jump6, out=five);
              Or(a=five, b=jump7, out=jump); 
 
+            And(a=Cinstruction, b=jump, out=jumpInst);
 
-        And(a=Cinstruction, b=jump, out=jumpInst);
-
-    //if it is not a jump, then the PC needs to increment
-        Not(in=jumpInst, out=incInst);
+        //if it is not a jump, then the PC needs to increment
+            Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
-        PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=PC);
+            PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=PC);
  }
