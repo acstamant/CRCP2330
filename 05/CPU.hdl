@@ -1,9 +1,9 @@
-l// This file is part of www.nand2tetris.org
+// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/05/CPU.hdl
 
-/**
+/*
  * The Hack CPU (Central Processing unit), consisting of an ALU,
  * two registers named A and D, and a program counter named PC.
  * The CPU is designed to fetch and execute instructions written in 
@@ -44,13 +44,17 @@ CHIP CPU {
     //a=A or M, c=comp, d=dest, j=jump 
 
     //decoder
-         Not(in=instruction[15], out=Ainstruction);
-         Not(in=Ainstruction, out=Cinstruction);         
+        //if they are both 1, then it is a C instruction
+         And(a=instruction[15],b=instruction[15], out=Cinstruction);
+
+    //Does the instruction go to the A or D regsiter?
+    //d1=A Register, d2=D register, d3=whether to store computed value in 
+
         
     //MUX
+        //if instruction[15] is 0, out a, if not, out b
          Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=sendtoA);
-
-         Or(a=Ainstruction, b=instruction[5], out=Ainst);
+         And(a=Ainstruction, b=instruction[5], out=Ainst);
 
     //A Register
          ARegister(in=sendtoA, load=Ainst, out[0..14]=Minstruction, out=A);
@@ -61,7 +65,7 @@ CHIP CPU {
          Mux16(a=A, b=inM, sel=AorM, out=AM);
 
     //D Register
-        Or(a=Cinstruction, b=instruction[4], out=sendtoD);
+        And(a=Cinstruction, b=instruction[4], out=sendtoD);
         DRegister(in=ALUoutput, load=Cinstruction, out=D);
 
     //ALU
@@ -78,15 +82,15 @@ CHIP CPU {
         And(a=aluZero, b=instruction[1], out=JEQ); // out = 0
         And(a=aluNeg, b=instruction[2], out=JLT);// out < 0
 
-     Or(a=aluZero, b=aluNeg, out=NotPositive);
-    Or(a=aluPositive, b=aluNonZero, out=Postive);
+        Or(a=aluZero, b=aluNeg, out=NotPositive);
+        Or(a=aluPositive, b=aluNonZero, out=Postive);
 
-    Or(a=JGT, b=JEQ, out=jump1);
-    Or(a=JLT, b=jump1, out=jump);
+        Or(a=JGT, b=JEQ, out=jump1);
+        Or(a=JLT, b=jump1, out=jump);
 
-    And(a=instruction[15], b=jump, out=jumpInst);
+        And(a=instruction[15], b=jump, out=jumpInst);
 
-    Not(in=jumpInst, out=incInst);
+        Not(in=jumpInst, out=incInst);
 
     //PC
         PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=PC);
