@@ -65,7 +65,7 @@ CHIP CPU {
 
     //MUX
         //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
-         Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=AorD);
+         Mux16(a=instruction,b=ALUoutput, sel=sendtoA, out=AorD);
 
     //A Register
          ARegister(in=AorD, load=sendtoA, out[0..14]=Minstruction, out=A);
@@ -108,7 +108,7 @@ CHIP CPU {
              Or(a=five, b=jump7, out=jump); 
 
 
-        And(a=instruction[15], b=jump, out=jumpInst);
+        And(a=Cinstruction, b=jump, out=jumpInst);
 
     //if it is not a jump, then the PC needs to increment
         Not(in=jumpInst, out=incInst);
