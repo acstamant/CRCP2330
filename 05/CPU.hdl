@@ -81,37 +81,24 @@ CHIP CPU {
             Not(in=aluNeg, out=aluPos);
             Not(in=aluZero, out=aluNonZero);
 
-            Or(a=aluPos, b=aluZero, out=PZ);
-            Or(a=aluNeg, b=aluZero, out=NZ);
+            And(a=aluPos, b=aluNonZero, out=PN);
+            And(a=aluNeg, b=aluZero, out=NZ);
 
 
 
     //Jump Conditions
-   
 
             And(a=instruction[15], b=instruction[0], out=JGT);
             And(a=instruction[15], b=instruction[1], out=JEQ);
             And(a=instruction[15], b=instruction[2], out=JLT);
 
-            And(a=instruction[0], b=instruction[1], out=jump1);
-            And(a=jump1, b=PZ, out=JGE);
 
-            And(a=instruction[0], b=instruction[3], out=jump2);
-            And(a=jump2, b=aluNonZero, out=JNE);
+            And(a=JGT, b=PN, out=jump1);
+            And(a=JEQ, b=aluZero, out=jump2); 
+            And(a=JLT, b=aluNeg, out=jump3);
 
-            And(a=instruction[1], b=instruction[2], out=jump3);
-            And(a=jump3, b=NZ, out=JLE);
-
-            And(a=instruction[0], b=instruction[1], out=jump4);
-            And(a=jump4, b=instruction[2], out=JMP);
-            Not(in=JMP, out=null);
-
-            Or(a=JGT, b=JEQ, out=one);
-            Or(a=one, b=JLT, out=two);
-            Or(a=two, b=JGE, out=three);
-            Or(a=three, b=JNE, out=four);
-            Or(a=four, b=JLE, out=five);
-            Or(a=five, b=JMP, out=jump);
+            Or(a=jump1, b=jump2, out=jj);
+            Or(a=jj, b=jump3, out=jump);
 
             And(a=instruction[15], b=jump, out=jumpInst);
 
@@ -119,5 +106,5 @@ CHIP CPU {
             Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
-            PC(in=Aout, load=jumpInst, inc=incInst, reset=reset, out[0..14]=pc);
+            PC(in=Aout, load=jumpInst, inc=true, reset=reset, out[0..14]=pc);
  }
