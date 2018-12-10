@@ -109,5 +109,5 @@ CHIP CPU {
             Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
-            PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=PC);
+            PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=pc);
  }
