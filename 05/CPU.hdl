@@ -45,13 +45,13 @@ CHIP CPU {
 
     //decoder
         //if they are both 1, then it is a C instruction
-            And(a=instruction[15], b=instruction[15], out=Cinstruction);
-            Not(in=Cinstruction, out=Ainstruction);
+            Not(in=instruction[15], out=Ainstruction);
+            Not(in=Ainstruction, out=Cinstruction);
 
         //Does the instruction go to the A or D register?
          //d1=A Register, d2=D register, d3=whether to store computed value in M 
     
-            And(a=Ainstruction, b=instruction[5], out=sendtoA);
+            Or(a=Ainstruction, b=instruction[5], out=sendtoA);
             And(a=instruction[15], b=instruction[4], out=sendtoD);
 
         //when instruction[12]=1, then you use M
@@ -61,7 +61,7 @@ CHIP CPU {
     //MUX
         //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
             Mux16(a=instruction,b=ALUoutput, sel=instruction[15], out=AorDout);
-            Or(a=Ainstruction, b=instruction[15], out=loadtoA);
+            Or(a=Ainstruction, b=instruction[5], out=loadtoA);
 
     //A Register
             ARegister(in=AorDout, load=loadtoA,out=Aout, out[0..14]=addressM);
@@ -69,8 +69,6 @@ CHIP CPU {
     //Decides if it is A or M
 
             Mux16(a=Aout, b=inM, sel=memory, out=AMout);
-
-        
 
     //D Register
             DRegister(in=ALUoutput, load=sendtoD, out=Dout);
@@ -83,8 +81,6 @@ CHIP CPU {
 
             And(a=aluPos, b=aluNonZero, out=PN);
             And(a=aluNeg, b=aluZero, out=NZ);
-
-
 
     //Jump Conditions
 
