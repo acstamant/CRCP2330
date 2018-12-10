@@ -70,13 +70,13 @@ CHIP CPU {
 
             Mux16(a=Aout, b=inM, sel=memory, out=AMout);
 
-            And(a=instruction[15], b=instruction[3], out=writeM);
+        
 
     //D Register
             DRegister(in=ALUoutput, load=sendtoD, out=Dout);
 
     //ALU
-            ALU(x=Dout, y=AMout, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
+            ALU(x=Dout, y=AMout, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
 
             Not(in=aluNeg, out=aluPos);
             Not(in=aluZero, out=aluNonZero);
@@ -100,11 +100,11 @@ CHIP CPU {
             Or(a=jump1, b=jump2, out=jj);
             Or(a=jj, b=jump3, out=jump);
 
-            And(a=instruction[15], b=jump, out=jumpInst);
+            And(a=Cinstruction, b=jump, out=jumpInst);
 
         //if it is not a jump, then the PC needs to increment
-            Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
             PC(in=Aout, load=jumpInst, inc=true, reset=reset, out[0..14]=pc);
+            And(a=instruction[15], b=instruction[3], out=writeM);
  }
