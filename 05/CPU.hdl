@@ -55,28 +55,29 @@ CHIP CPU {
             And(a=true, b=instruction[4], out=sendtoD);
 
         //when instruction[12]=1, then you use M
-            //And(a=instruction[15], b=instruction[12], out=mem); 
-            //Or(a=mem, b=instruction[3], out=memory);
+            And(a=instruction[15], b=instruction[3], out=mem); 
+            Or(a=mem, b=instruction[12], out=memory);
 
     //MUX
         //if instruction[15] is 0, out intruction, if 1, then outputs the aluoutput
-            Mux16(a=ALUoutput,b=instruction, sel=sendtoA, out=AorD);
+            Mux16(a=ALUoutput,b=instruction, sel=sendtoA, out=AorDout);
             Or(a=Ainstruction, b=sendtoA, out=loadtoA);
 
     //A Register
-            ARegister(in=AorD, load=loadtoA, out[0..14]=addressM, out=A);
+            ARegister(in=AorDout, load=loadtoA, out[0..14]=addressM, out=Aout);
 
     //Decides if it is A or M
             //If 12 is 0, then A, if its 1, then M 
-            Mux16(a=A, b=inM, sel=instruction[12], out=AM);
+
+            Mux16(a=Aout, b=inM, sel=memory, out=AMout);
 
             And(a=instruction[15], b=instruction[3], out=writeM);
 
     //D Register
-            DRegister(in=ALUoutput, load=sendtoD, out=D);
+            DRegister(in=ALUoutput, load=sendtoD, out=Dout);
 
     //ALU
-            ALU(x=D, y=AM, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
+            ALU(x=Dout, y=AMout, zx=instruction[11], ny=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUoutput, out=outM, zr=aluZero, ng=aluNeg);
 
     //fetches the jump instruction
             Or(a=aluZero, b=aluNeg, out=NotPositive);
@@ -109,5 +110,5 @@ CHIP CPU {
             Not(in=jumpInst, out=incInst);
 
     //PC-16bit counter, similar to a regsiter but has two additional bits...when inc=1 then it increments, to reset = 1, loads whatever is in
-            PC(in=A, load=jumpInst, inc=incInst, reset=reset, out[0..14]=pc);
+            PC(in=Aout, load=jumpInst, inc=incInst, reset=reset, out[0..14]=pc);
  }
