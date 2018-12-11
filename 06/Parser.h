@@ -1,15 +1,36 @@
-//Parser.h
-//Parser class that contains data members and member functions
+#include <iostream>
+#include <string> 
+#include <fstream>
 #include <string>
-class Parser{
+#include <map>
+
+using namespace std; 
+
+class parser {
 public:
-	explicit Parser(std::string File);
-	//~Parser();
-	//bool hasMoreCommands();
-	//int advance();
-	//int commandType();
-	//string symbol();
-	//string dest();
-	//string comp();
-	//string jump();
+	parser() {
+	}
+	void parseText(string fileName)
+	{
+		char charIn;
+		std::cout << "Parser Class Start" << endl;
+		//reads in the file	
+		ifstream in(fileName, fstream::in);
+		//While there are still characters
+		while(in.get(charIn)) 
+		{
+			std::cout << charIn << endl;
+
+			//if(charIn == "@") {
+		}
+
+	}
+
+	void mapA(){
+		
+
+
+	}
 };
+
+
