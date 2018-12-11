@@ -17,47 +17,57 @@
 	//It sets the stage for a subsequent C instruction that specifies a jump, first by loading the address of the jump destination into the A regesiter 
 
 (BEGIN)
-	@SCREEN //refers to the screen location
+	@SCREEN//refers to the screen location
 	D=A //sets D=Screen
 	@i //refers to some memory location
-	M=D //sets the memory of i to D (i=SCREEN)
-
+	M=D //sets the memory of i to D (i=SCREEN), start location 
 
 (LOOP)
+	
+	@BEGIN
+	D;JLT
+
 	@KBD //refers to the keyboard location
 	D=M //sets memory of D=M[KBD]
 
 	@BLACK //refers to the BLACK loop
-	D; JNE //jumps D (which is set to the keyboard input) is equal to 1
+	0; JMP//jumps D (which is set to the keyboard input) is equal to 1
 
 	@WHITE //refers to the WHITE loop
 	D; JEQ //jumps if D(which is set to the keyboard input) is equal to 0
 
 
 (BlACK)
-	@i //refers to the current memory address 
-	D=A//sets D to the current address 
-	M=D+1 //increments the memory to the next address
-
-	@SCREEN
-	M=-1 //sets the memory location to -1 
-	D=A //stores address in D
+	@i //fefers to the memory of i
+	M=M+1 //increments the memeory location
+	D=M //stores this in the D register
+	@BEGIN
+	D;JLT
+	
 	@i
-	A=D+1 //Increments the address by 1 
+	D=M
+	A=D
+	M=-1
 
 	@LOOP//goes back to the loop
 	0;JMP
 
 (WHITE)
-	@i //refers to the current memory address 
-	D=A//sets D to the current address 
-	M=D+1 //increments the memory to the next address
-
-	@SCREEN
-	M=0//sets the memory location to -1 
-	D=A //stores address in D
+	@i //fefers to the memory of i
+	M=M-1 //deincrements the memory location
+	D=M //stores this in the D register
+	@BEGIN
+	D;JLT
+	
 	@i
-	A=D-1 //DeIncrements the address by 1 
+	D=M
+	A=D
+	M=0//sets the memory location to 0
 
-	@LOOP //goes back to the loop
+	@LOOP//goes back to the loop
 	0;JMP
+
+(END)
+
+	@LOOP
+	D;JMP //infinite loop

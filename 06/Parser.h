@@ -6,34 +6,55 @@
 
 using namespace std; 
 
-class parser {
+class parser 
+{
+
 public:
 	std::map<std::string, std::string> my_map;
 	std::map<std::string, std::string> my_mapC; 
 	std::map<std::string, std::string> my_mapM;
 	std::map<std::string, std::string> dstMap;
 	std::map<std::string, std::string> jmpMap;
-	parser() {
+
+	parser()
+	 {
 		mapInit();
 		cout << "Map A: " << my_map["THAT"] << endl;
 	}
+
 	void parseText(string fileName)
 	{
 		char charIn;
 		std::cout << "Parser Class Start" << endl;
 		//reads in the file	
-		ifstream in(fileName, fstream::in);
 		//While there are still characters
+		ifstream in(fileName, fstream::in);
 		while(in.get(charIn)) 
 		{
-			std::cout << charIn << endl;
-
-			//if(charIn == "@") {
+			std::cout << charIn << endl;	
 		}
-
 	}
 
-	void mapInit(){
+	bool hasMoreCommands(ifstream inputFile){
+		return !(inputFile.eof());
+	}
+
+
+	void advance()
+	{
+		if(!hasMoreComands())
+			{
+
+				inputFile>>current; 
+				while(int i=0, i=char, i++)
+			}
+		
+
+	}
+	
+
+	void mapInit()
+	{
 
 		//the predifined variables
 		my_map.emplace("SP", "0"); 
@@ -111,7 +132,7 @@ public:
 		jmpMap.emplace("JLE","110");
 		jmpMap.emplace("JMP","111"); 
 
-
+		//do a double four loops 
 
 	}
 };
