@@ -11,42 +11,13 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-@SCREEN
-D=M
-@i
-M=D
+// A instruction is used to set the A register to a 15 bit value 
+	//provides the only way to enter a constant in by computer control
+	//sets the stage for a C instruction designed to manipulate a certain data memory location, by setting  A to the address of that location 
+	//It sets the stage for a subsequent C instruction that specifies a jump, first by loading the address of the jump destination into the A regesiter 
 
-(LOOP)
-	@KBD
-	D=M 
-	@BLACK
-	D; JGT
-	@WHITE
-	D; JEQ
 
-(BLACK)
-	//@SCREEN
-	//M=-1
-
-	@SCREEN 
-	D=A
-	M=D+1
-	@i
-	D=M 
-
-(WHITE)
-	@SCREEN 
-	M=0
-
-	@SCREEN 
-	D=A
-	M=D-1
-	@i
-	D=M 
-
-	@WHITE
-	D; JMP
-
-(END)
-@END
-D;JMP //infinite loop 
+@SCREEN //refers to the screen location
+D=A //sets D=Screen
+@i //refers to some memory location
+M=D //sets the memory of i to D (i=SCREEN)
