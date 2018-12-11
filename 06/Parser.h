@@ -29,15 +29,23 @@ public:
 	void parseText(string fileName)
 	{
 		std::string str;
-		std::string content;
 
 		std::cout << "Parser Class Start" << endl;
 
 		ifstream inFile(fileName, fstream::in);  //opens the file
 
-		while(inFile>>content) //loop that reads in the files line by line
+		while(!inFile.eof()) //loop that reads in the files line by line
 		{
-			cout <<content<< endl;
+			getline(inFile, str); 
+
+			if(str.length()==0||str[0]=='/'|| str[1]=='/')
+			{
+				cout<< "IGNORE"<<endl;
+			}
+			else
+			{
+				cout <<str<< endl;
+			}
 		}
 
 	}
