@@ -6,54 +6,49 @@
 
 using namespace std; 
 
+//creates the parse class
+
 class parser 
 {
 
 public:
-	std::map<std::string, std::string> my_map;
-	std::map<std::string, std::string> my_mapC; 
-	std::map<std::string, std::string> my_mapM;
-	std::map<std::string, std::string> dstMap;
-	std::map<std::string, std::string> jmpMap;
+	//std::map<std::string, std::string> my_map;
+	//std::map<std::string, std::string> my_mapC; 
+	//std::map<std::string, std::string> my_mapM;
+	//std::map<std::string, std::string> dstMap;
+	//std::map<std::string, std::string> jmpMap;
 
-	parser()
+	parser() //default constructor
 	 {
-		mapInit();
-		cout << "Map A: " << my_map["THAT"] << endl;
+		//mapInit();
+		//cout << "Map A: " << my_map["THAT"] << endl;
+
 	}
 
+	//function that reads in the text file 
 	void parseText(string fileName)
 	{
-		char charIn;
+		std::string str;
+		std::string content;
+
 		std::cout << "Parser Class Start" << endl;
-		//reads in the file	
-		//While there are still characters
-		ifstream in(fileName, fstream::in);
-		while(in.get(charIn)) 
+
+		ifstream inFile(fileName, fstream::in);  //opens the file
+
+		while(inFile>>content) //loop that reads in the files line by line
 		{
-			std::cout << charIn << endl;	
+			cout <<content<< endl;
 		}
-	}
-
-	bool hasMoreCommands(ifstream inputFile){
-		return !(inputFile.eof());
-	}
-
-
-	void advance()
-	{
-		if(!hasMoreComands())
-			{
-
-				inputFile>>current; 
-				while(int i=0, i=char, i++)
-			}
-		
 
 	}
+
+	//bool hasMoreCommands(ifstream inputFile){
+		//return !(inputFile.eof());
+
+
 	
-
-	void mapInit()
+/*
+	//void mapInit()
 	{
 
 		//the predifined variables
@@ -126,15 +121,16 @@ public:
 		jmpMap.emplace("","000");
 		jmpMap.emplace("JGT","001");
 		jmpMap.emplace("JEQ","010");
-		jmpMap.emplace("JGE","011");   
-		jmpMap.emplace("JLT","100");
-		jmpMap.emplace("JNE","101");
-		jmpMap.emplace("JLE","110");
-		jmpMap.emplace("JMP","111"); 
+		//jmpMap.emplace("JGE","011");   
+		//jmpMap.emplace("JLT","100");
+		//jmpMap.emplace("JNE","101");
+		//jmpMap.emplace("JLE","110");
+		//jmpMap.emplace("JMP","111"); 
 
 		//do a double four loops 
 
 	}
+	*/
 };
 
 

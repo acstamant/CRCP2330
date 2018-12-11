@@ -9,8 +9,7 @@ using namespace std;
 
 int main()
 {
-	std::cout << "testcompile" << endl;	
-	parser p1;
-	p1.parseText("test.txt");
-
+	parser p1;//creates the parser object 
+	p1.parseText("add.asm"); //the object uses function to read in text file
+	cout << endl; 
 }
