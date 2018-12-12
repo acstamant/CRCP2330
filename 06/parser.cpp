@@ -6,6 +6,7 @@
 #include "parser.h"
 using namespace std; 
 
+std::string str; 
 
 
 parser::parser() //default constructor
@@ -13,7 +14,6 @@ parser::parser() //default constructor
 
 parser::parser(std::string fileName) //constructor when parameter is read in 
 {
-	std::string str; 
 
 	ifstream inFile(fileName, ios::in);//creates a stream and opens the file
 
@@ -42,33 +42,21 @@ void parser::advance()
 
 }
 
-void numOfLines(int num_lines)
-{
-	num_lines=0; 
-	num_lines--; 
-	cout<< "Number of Lines:" << num_lines <<endl; 
-}
-bool parser::hasMoreCommands(std::string fileName, int& num_lines)
-{
-	string line; 
-	ifstream inFile(fileName);
 
-	if(inFile.is_open())
+commands parser::commandType()
+{
+	if (str[0] == '@')
 	{
-		while(!inFile.eof())
-		{
-			getline(inFile, line);
-			cout <<line <<endl; 
-			num_lines++;
-
-		}
-		inFile.close();
+		return commands::A_COMMAND;
 	}
-
-}
-string parser::commandType()
-{
-	return 0;
+	else if (str[0]=='(')
+	{
+		return commands::L_COMMAND; 
+	}
+	else 
+	{
+		return commands::C_COMMAND; 
+	}
 }
 	
 string parser::symbol()

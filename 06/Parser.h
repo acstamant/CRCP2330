@@ -2,6 +2,8 @@
 #include <iostream>
 //header file for the parser.cpp
 
+
+enum class commands{A_COMMAND, C_COMMAND, L_COMMAND};  
 class parser
 {
 public:
@@ -10,8 +12,6 @@ public:
 
 	void advance();
 
-	std::string commandType();
-
 	std::string removeComments(std::string);
 	//use a switch case
 
@@ -19,19 +19,14 @@ public:
 	std::string dest();
 	std::string comp();
 	std::string jump();
-	void numOfLines(int); 
-	bool hasMoreCommands(std::string, int&);
+	commands commandType();
 
-
-	//checks to see if it is at the end of the file
-	bool endofFile(std::string);
-
-	void nextLine();
 
 
 	//bool readNextLine();
 
 private: 
+	std::string instruction; 
 	
 
 
