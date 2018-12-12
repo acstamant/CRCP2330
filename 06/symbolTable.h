@@ -34,7 +34,7 @@ public:
 			predefinedMap.emplace("SCREEN", 16384); 
 			predefinedMap.emplace("KBD", 24576);
 
-	
+		}
 	//constructor that creates new table
 	symbolTable();
 	//Adds the pair (symbol, address) to the table

@@ -1,5 +1,6 @@
 
 #include <fstream>
+#include <sstream>
 #include <map>
 #include "parser.h"
 using namespace std; 
@@ -17,9 +18,21 @@ parser::parser(std::string fileName) //constructor when parameter is read in
 
 	if(inFile.is_open())//tests that the file opened correctly
 	{
-		while(getline(inFile, str)) //loop that reads each line(places in the string variable)
+		while(std::getline(inFile, str)) //loop that reads each line(places in the string variable)
 		{
-			cout<<str<<endl; 
+			if(str[0]=='/' && str[1]=='/') //this loop removes the comments
+			{
+				cout <<"no ";
+			}
+			else if(str[0] == '  ')
+			{
+				cout << "blank ";
+			}
+			else
+			{
+				cout << str<<endl; 
+			}
+
 		}
 	}
 }
@@ -80,9 +93,10 @@ string parser::jump()
 
 
 //stream& operator>>(istream& input, const parser& fileName)
-	//{
+//{
 
-		//input.ignore('@');
+
+//		//input.ignore('@');
 		
 		//return input; 
 	//}

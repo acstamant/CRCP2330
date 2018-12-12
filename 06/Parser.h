@@ -11,6 +11,8 @@ public:
 	void advance();
 
 	std::string commandType();
+
+	std::string removeComments(std::string);
 	//use a switch case
 
 	std::string symbol();
