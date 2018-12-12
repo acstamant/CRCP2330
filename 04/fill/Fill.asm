@@ -31,38 +31,44 @@
 	D=M //sets memory of D=M[KBD]
 
 	@BLACK //refers to the BLACK loop
-	0; JMP//jumps D (which is set to the keyboard input) is equal to 1
+	D; JGT//jumps D (which is set to the keyboard input) is equal to 1
 
 	@WHITE //refers to the WHITE loop
 	D; JEQ //jumps if D(which is set to the keyboard input) is equal to 0
 
 
 (BlACK)
+
+	@i
+	D=M //stores the memory of i into d
+	@SCREEN
+	D=A+D
+	M=-1//sets register to 1
+
 	@i //fefers to the memory of i
 	M=M+1 //increments the memeory location
-	D=M //stores this in the D register
+	A=M //stores this in the D register
 	@BEGIN
 	D;JLT
-	
-	@i
-	D=M
-	A=D
-	M=-1
 
 	@LOOP//goes back to the loop
 	0;JMP
 
 (WHITE)
+
+	@i
+	D=M //stores the memory of i into d
+	@SCREEN
+	D=A+D
+	M=0//sets register to 0
+
 	@i //fefers to the memory of i
-	M=M-1 //deincrements the memory location
-	D=M //stores this in the D register
+	M=M-1 //deincrements the the memory location 
+	A=M //stores this in the D register
 	@BEGIN
 	D;JLT
 	
-	@i
-	D=M
-	A=D
-	M=0//sets the memory location to 0
+
 
 	@LOOP//goes back to the loop
 	0;JMP
