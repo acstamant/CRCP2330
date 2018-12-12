@@ -4,40 +4,46 @@
 #include "parser.h"
 using namespace std; 
 
-//creates the parse class
-
-//class parser 
-//{
-
-//public:
-	//std::map<std::string, std::string> my_map;
-	//std::map<std::string, std::string> my_mapC; 
-	//std::map<std::string, std::string> my_mapM;
-	//std::map<std::string, std::string> dstMap;
-	//std::map<std::string, std::string> jmpMap;
-
-	char c; 
-	char* ptr; 
-	ifstream::pos_type size; 
-
-	parser::parser() //default constructor
-	 {
-		//mapInit();
-		//cout << "Map A: " << my_map["THAT"] << endl;
-	}
-	istream& operator>>(istream& input, const parser& fileName)
-	{
-
-		input.ignore('@');
-		
-		return input; 
-	}
-
-//determine whether the file is at the end 
-bool parser::endofFile(std::string fileName)
+parser::parser() //default constructor
 {
-	
 
+	
+}
+
+parser::parser(std::string fileName) //constructor when parameter is read in 
+{
+	std::string str; 
+		ifstream inFile;  //names the file
+		inFile.open(fileName, ios::in);
+
+		while(getline(inFile, str)) //loop that reads each line(places in the string variable)
+		{
+			if(str[0]=='/'|| str[1]=='/') //checks to see if there is a comment
+			{
+		
+			}
+			if(str.empty()) //checks to see if it is empty
+			{
+
+			}
+			else
+			{
+				cout<<str<<endl;
+				}
+		}
+	
+}
+
+//stream& operator>>(istream& input, const parser& fileName)
+	//{
+
+		//input.ignore('@');
+		
+		//return input; 
+	//}
+//determine whether the file is at the end 
+/*bool parser::endofFile(std::string fileName)
+{
 	return true; 
 }
 
@@ -48,23 +54,34 @@ int getChar(std::string fileName)
 
 	return 0; 
 }
-//void parser::nextLine()
-//{
-	//if(!(endofFile(line)))
-	//{
-		//++line;
-	//}
-//}
+*/
+
 	
-	void parser::parseText(std::string fileName)
-	{
-		
-		std::string str; //declares variable that holds the contents of file, one line at a time
 	
 
-		ifstream inFile(fileName);  //opens the file
+		/*std::string str; //declares variable that holds the contents of file, one line at a time
+		ifstream inFile;  //names the file
+		inFile.open(fileName, ios::in);
 
-		while(inFile.get(c))
+		char c; 
+		int lines=0; 
+
+		while(!inFile.eof())
+		{
+			cin.get(c);
+			cout << c;
+			if(c=='\n')
+			{
+				++lines; 
+			}
+
+		cout << lines <<endl; 
+		}
+		*/
+	
+
+		/*
+		while(inFile.get(str))
 		{
 			cout <<c; 
 			if(inFile.eof())
@@ -73,7 +90,8 @@ int getChar(std::string fileName)
 			}
 			else
 			{
-				cout << "error" <<endl; 
+				cout << c <<endl; 
+
 
 			}
 
@@ -81,27 +99,11 @@ int getChar(std::string fileName)
 
 
 		}
+		*/
 
 
 
-		/*while(getline(inFile, str)) //loop that reads each line(places in the string variable)
-		{
-			if(!inputF)
-			if(str[0]=='/'|| str[1]=='/') //checks to see if there is a commebt
-			{
-			
-			}
-			else if(str.empty()) //checks to see if it is empty
-			{
 
-			}
-			else
-			{
-				cout<<str<<endl;
-			}
-		}*/
-
-	}
 	
 
 	//bool parser::hasMoreCommands()

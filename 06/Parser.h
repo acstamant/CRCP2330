@@ -6,9 +6,8 @@ class parser
 {
 public:
 	parser();
-
+	parser(std::string);
 	//declared as a friend bc need to access non-public class members 
-	//friend std::istream& operator >>(std::istream&, const parser&); //stream extraction operator function, tajes teh istream refererence input  
 
 	//inputs file and removes the comments and blank space
 	void parseText(std::string); 
@@ -16,6 +15,7 @@ public:
 	//checks to see if it is at the end of the file
 	bool endofFile(std::string);
 
+	void nextLine();
 
 
 	//bool readNextLine();

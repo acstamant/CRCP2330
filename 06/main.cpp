@@ -4,15 +4,11 @@
 
 #include "parser.cpp"
 #include "symbolTable.cpp"
+#include "code.cpp"
 
 using namespace std; 
 
 int main()
 {
-	parser p1;//creates the object p1 of the parser class
-
-	p1.parseText("add.asm"); //the object uses function to read in text file
-
-	return 0; 
-	
+	parser p1("add.asm");//creates the object p1 of the parser class
 }
