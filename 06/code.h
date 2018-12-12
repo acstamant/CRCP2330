@@ -1,10 +1,13 @@
 #include <string>
 #include <iostream>
 //.h files for code.cpp
+class code
+{
+public:
+	int destination(std::string);
 
-int dest(std::string mnemonic);
+	int computation(std::string);
 
-int comp(std::string mnemonic);
-
-int jump(std::string mnemonic);
+	int jumpcond(std::string);
+};
 

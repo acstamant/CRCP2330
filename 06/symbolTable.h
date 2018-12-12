@@ -34,59 +34,7 @@ public:
 			predefinedMap.emplace("SCREEN", 16384); 
 			predefinedMap.emplace("KBD", 24576);
 
-	//COMP MAP
-		//WHEN A=0
-			//These are 7 digit, since you are including a as well
-			predefinedMap.emplace("0", 0101010); 
-			predefinedMap.emplace("1", 0111111); 
-			predefinedMap.emplace("-1", 0111010);
-			predefinedMap.emplace("D", 0001100); 
-			predefinedMap.emplace("A", 0110000); 
-			predefinedMap.emplace("!D", 0001101);
-			predefinedMap.emplace("!A", 0110001); 
-			predefinedMap.emplace("-D", 0001111); 
-			predefinedMap.emplace("-A", 0110011);
-			predefinedMap.emplace("D+1", 0011111); 
-			predefinedMap.emplace("A+1", 0110111); 
-			predefinedMap.emplace("D-1", 0001110);
-			predefinedMap.emplace("A-1", 0110010); 
-			predefinedMap.emplace("D+A", 0000010); 
-			predefinedMap.emplace("D-A", 0010011);		
-			predefinedMap.emplace("A-D", 0000111); 
-			predefinedMap.emplace("D&A", 0000000); 
-			predefinedMap.emplace("D|A", 0010101);
-		//WHEN A=1, contain 7 digits as well
-			predefinedMap.emplace("M", 1110000); 
-			predefinedMap.emplace("!M", 1110001); 
-			predefinedMap.emplace("-M", 1110011);
-			predefinedMap.emplace("M+1",1110111); 
-			predefinedMap.emplace("M-1", 1110010); 
-			predefinedMap.emplace("D+M", 1000010);
-			predefinedMap.emplace("D-M", 1010011); 
-			predefinedMap.emplace("M-D", 1000111); 
-			predefinedMap.emplace("D&M", 1000000);
-			predefinedMap.emplace("D|M", 1010101);
-
-	//DEST MAP
-			predefinedMap.emplace("",000);
-			predefinedMap.emplace("M",001); 
-			predefinedMap.emplace("D",010);
-			predefinedMap.emplace("MD",011);   
-			predefinedMap.emplace("A",100);
-			predefinedMap.emplace("AM",101); 
-			predefinedMap.emplace("AD",110);
-			predefinedMap.emplace("AMD",111); 
-
-	//COMP MAP 
-			predefinedMap.emplace("",000);
-			predefinedMap.emplace("JGT",001);
-			predefinedMap.emplace("JEQ",010);
-			predefinedMap.emplace("JGE",011);   
-			predefinedMap.emplace("JLT",100);
-			predefinedMap.emplace("JNE",101);
-			predefinedMap.emplace("JLE",110);
-			predefinedMap.emplace("JMP",111); 
-		}
+	
 	//constructor that creates new table
 	symbolTable();
 	//Adds the pair (symbol, address) to the table

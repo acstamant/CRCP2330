@@ -7,10 +7,19 @@ class parser
 public:
 	parser();
 	parser(std::string);
-	//declared as a friend bc need to access non-public class members 
 
-	//inputs file and removes the comments and blank space
-	void parseText(std::string); 
+	void advance();
+
+	std::string commandType();
+	//use a switch case
+
+	std::string symbol();
+	std::string dest();
+	std::string comp();
+	std::string jump();
+	void numOfLines(int); 
+	bool hasMoreCommands(std::string, int&);
+
 
 	//checks to see if it is at the end of the file
 	bool endofFile(std::string);
@@ -21,9 +30,7 @@ public:
 	//bool readNextLine();
 
 private: 
-	int linePost; 
-	int command; 
-	std::string current; 
+	
 
 
 
