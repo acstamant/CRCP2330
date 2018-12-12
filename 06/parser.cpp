@@ -1,5 +1,6 @@
 
 #include <fstream>
+#include <algorithm>
 #include <sstream>
 #include <map>
 #include "parser.h"
@@ -20,16 +21,13 @@ parser::parser(std::string fileName) //constructor when parameter is read in
 	{
 		while(std::getline(inFile, str)) //loop that reads each line(places in the string variable)
 		{
-			if(str[0]=='/' && str[1]=='/') //this loop removes the comments
+			if(str[0]=='/' && str[1]=='/')
 			{
-				cout <<"no ";
-			}
-			else if(str[0] == '  ')
-			{
-				cout << "blank ";
+				remove(str.begin(), str.end(), '/');
 			}
 			else
 			{
+				remove(str.begin(), str.end(), ' ');
 				cout << str<<endl; 
 			}
 
